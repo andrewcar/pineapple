@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		49596EE81C67CDF000A29D62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49596EE71C67CDF000A29D62 /* AppDelegate.swift */; };
+		49596EEA1C67CDF000A29D62 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49596EE91C67CDF000A29D62 /* ViewController.swift */; };
+		49596EED1C67CDF000A29D62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49596EEB1C67CDF000A29D62 /* Main.storyboard */; };
+		49596EEF1C67CDF000A29D62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49596EEE1C67CDF000A29D62 /* Assets.xcassets */; };
+		49596EF21C67CDF000A29D62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49596EF01C67CDF000A29D62 /* LaunchScreen.storyboard */; };
+		49596EFD1C67CDF000A29D62 /* PineappleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49596EFC1C67CDF000A29D62 /* PineappleTests.swift */; };
+		49596F081C67CDF000A29D62 /* PineappleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49596F071C67CDF000A29D62 /* PineappleUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		49596EF91C67CDF000A29D62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49596EDC1C67CDF000A29D62 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49596EE31C67CDF000A29D62;
+			remoteInfo = Pineapple;
+		};
+		49596F041C67CDF000A29D62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49596EDC1C67CDF000A29D62 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49596EE31C67CDF000A29D62;
+			remoteInfo = Pineapple;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		49596EE41C67CDF000A29D62 /* Pineapple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pineapple.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49596EE71C67CDF000A29D62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		49596EE91C67CDF000A29D62 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		49596EEC1C67CDF000A29D62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		49596EEE1C67CDF000A29D62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		49596EF11C67CDF000A29D62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		49596EF31C67CDF000A29D62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49596EF81C67CDF000A29D62 /* PineappleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PineappleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49596EFC1C67CDF000A29D62 /* PineappleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PineappleTests.swift; sourceTree = "<group>"; };
+		49596EFE1C67CDF000A29D62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49596F031C67CDF000A29D62 /* PineappleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PineappleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49596F071C67CDF000A29D62 /* PineappleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PineappleUITests.swift; sourceTree = "<group>"; };
+		49596F091C67CDF000A29D62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		49596EE11C67CDF000A29D62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49596EF51C67CDF000A29D62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49596F001C67CDF000A29D62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		49596EDB1C67CDF000A29D62 = {
+			isa = PBXGroup;
+			children = (
+				49596EE61C67CDF000A29D62 /* Pineapple */,
+				49596EFB1C67CDF000A29D62 /* PineappleTests */,
+				49596F061C67CDF000A29D62 /* PineappleUITests */,
+				49596EE51C67CDF000A29D62 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		49596EE51C67CDF000A29D62 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				49596EE41C67CDF000A29D62 /* Pineapple.app */,
+				49596EF81C67CDF000A29D62 /* PineappleTests.xctest */,
+				49596F031C67CDF000A29D62 /* PineappleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		49596EE61C67CDF000A29D62 /* Pineapple */ = {
+			isa = PBXGroup;
+			children = (
+				49596EE71C67CDF000A29D62 /* AppDelegate.swift */,
+				49596EE91C67CDF000A29D62 /* ViewController.swift */,
+				49596EEB1C67CDF000A29D62 /* Main.storyboard */,
+				49596EEE1C67CDF000A29D62 /* Assets.xcassets */,
+				49596EF01C67CDF000A29D62 /* LaunchScreen.storyboard */,
+				49596EF31C67CDF000A29D62 /* Info.plist */,
+			);
+			path = Pineapple;
+			sourceTree = "<group>";
+		};
+		49596EFB1C67CDF000A29D62 /* PineappleTests */ = {
+			isa = PBXGroup;
+			children = (
+				49596EFC1C67CDF000A29D62 /* PineappleTests.swift */,
+				49596EFE1C67CDF000A29D62 /* Info.plist */,
+			);
+			path = PineappleTests;
+			sourceTree = "<group>";
+		};
+		49596F061C67CDF000A29D62 /* PineappleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				49596F071C67CDF000A29D62 /* PineappleUITests.swift */,
+				49596F091C67CDF000A29D62 /* Info.plist */,
+			);
+			path = PineappleUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		49596EE31C67CDF000A29D62 /* Pineapple */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49596F0C1C67CDF000A29D62 /* Build configuration list for PBXNativeTarget "Pineapple" */;
+			buildPhases = (
+				49596EE01C67CDF000A29D62 /* Sources */,
+				49596EE11C67CDF000A29D62 /* Frameworks */,
+				49596EE21C67CDF000A29D62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pineapple;
+			productName = Pineapple;
+			productReference = 49596EE41C67CDF000A29D62 /* Pineapple.app */;
+			productType = "com.apple.product-type.application";
+		};
+		49596EF71C67CDF000A29D62 /* PineappleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49596F0F1C67CDF000A29D62 /* Build configuration list for PBXNativeTarget "PineappleTests" */;
+			buildPhases = (
+				49596EF41C67CDF000A29D62 /* Sources */,
+				49596EF51C67CDF000A29D62 /* Frameworks */,
+				49596EF61C67CDF000A29D62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49596EFA1C67CDF000A29D62 /* PBXTargetDependency */,
+			);
+			name = PineappleTests;
+			productName = PineappleTests;
+			productReference = 49596EF81C67CDF000A29D62 /* PineappleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		49596F021C67CDF000A29D62 /* PineappleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49596F121C67CDF000A29D62 /* Build configuration list for PBXNativeTarget "PineappleUITests" */;
+			buildPhases = (
+				49596EFF1C67CDF000A29D62 /* Sources */,
+				49596F001C67CDF000A29D62 /* Frameworks */,
+				49596F011C67CDF000A29D62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49596F051C67CDF000A29D62 /* PBXTargetDependency */,
+			);
+			name = PineappleUITests;
+			productName = PineappleUITests;
+			productReference = 49596F031C67CDF000A29D62 /* PineappleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		49596EDC1C67CDF000A29D62 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Andrew Carvajal";
+				TargetAttributes = {
+					49596EE31C67CDF000A29D62 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					49596EF71C67CDF000A29D62 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 49596EE31C67CDF000A29D62;
+					};
+					49596F021C67CDF000A29D62 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 49596EE31C67CDF000A29D62;
+					};
+				};
+			};
+			buildConfigurationList = 49596EDF1C67CDF000A29D62 /* Build configuration list for PBXProject "Pineapple" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 49596EDB1C67CDF000A29D62;
+			productRefGroup = 49596EE51C67CDF000A29D62 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				49596EE31C67CDF000A29D62 /* Pineapple */,
+				49596EF71C67CDF000A29D62 /* PineappleTests */,
+				49596F021C67CDF000A29D62 /* PineappleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		49596EE21C67CDF000A29D62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49596EF21C67CDF000A29D62 /* LaunchScreen.storyboard in Resources */,
+				49596EEF1C67CDF000A29D62 /* Assets.xcassets in Resources */,
+				49596EED1C67CDF000A29D62 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49596EF61C67CDF000A29D62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49596F011C67CDF000A29D62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		49596EE01C67CDF000A29D62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49596EEA1C67CDF000A29D62 /* ViewController.swift in Sources */,
+				49596EE81C67CDF000A29D62 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49596EF41C67CDF000A29D62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49596EFD1C67CDF000A29D62 /* PineappleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49596EFF1C67CDF000A29D62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49596F081C67CDF000A29D62 /* PineappleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		49596EFA1C67CDF000A29D62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49596EE31C67CDF000A29D62 /* Pineapple */;
+			targetProxy = 49596EF91C67CDF000A29D62 /* PBXContainerItemProxy */;
+		};
+		49596F051C67CDF000A29D62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49596EE31C67CDF000A29D62 /* Pineapple */;
+			targetProxy = 49596F041C67CDF000A29D62 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		49596EEB1C67CDF000A29D62 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49596EEC1C67CDF000A29D62 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		49596EF01C67CDF000A29D62 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49596EF11C67CDF000A29D62 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		49596F0A1C67CDF000A29D62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		49596F0B1C67CDF000A29D62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		49596F0D1C67CDF000A29D62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Pineapple/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Hoods.Pineapple;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		49596F0E1C67CDF000A29D62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Pineapple/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Hoods.Pineapple;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		49596F101C67CDF000A29D62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = PineappleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Hoods.PineappleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pineapple.app/Pineapple";
+			};
+			name = Debug;
+		};
+		49596F111C67CDF000A29D62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = PineappleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Hoods.PineappleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pineapple.app/Pineapple";
+			};
+			name = Release;
+		};
+		49596F131C67CDF000A29D62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = PineappleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Hoods.PineappleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Pineapple;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		49596F141C67CDF000A29D62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = PineappleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Hoods.PineappleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Pineapple;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		49596EDF1C67CDF000A29D62 /* Build configuration list for PBXProject "Pineapple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49596F0A1C67CDF000A29D62 /* Debug */,
+				49596F0B1C67CDF000A29D62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49596F0C1C67CDF000A29D62 /* Build configuration list for PBXNativeTarget "Pineapple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49596F0D1C67CDF000A29D62 /* Debug */,
+				49596F0E1C67CDF000A29D62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		49596F0F1C67CDF000A29D62 /* Build configuration list for PBXNativeTarget "PineappleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49596F101C67CDF000A29D62 /* Debug */,
+				49596F111C67CDF000A29D62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		49596F121C67CDF000A29D62 /* Build configuration list for PBXNativeTarget "PineappleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49596F131C67CDF000A29D62 /* Debug */,
+				49596F141C67CDF000A29D62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 49596EDC1C67CDF000A29D62 /* Project object */;
+}
