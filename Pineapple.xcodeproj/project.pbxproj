@@ -14,6 +14,8 @@
 		49596EFD1C67CDF000A29D62 /* PineappleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49596EFC1C67CDF000A29D62 /* PineappleTests.swift */; };
 		49596F081C67CDF000A29D62 /* PineappleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49596F071C67CDF000A29D62 /* PineappleUITests.swift */; };
 		49596F161C67CE4400A29D62 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49596F151C67CE4400A29D62 /* MapViewController.swift */; };
+		49596F1C1C73BB3200A29D62 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49596F1B1C73BB3200A29D62 /* Settings.bundle */; };
+		49596F1E1C73F7E900A29D62 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49596F1D1C73F7E900A29D62 /* ProfileView.swift */; };
 		D83716F9D755749E29D91C16 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C491A5B8ADE539BE151C9DF /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +51,8 @@
 		49596F071C67CDF000A29D62 /* PineappleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PineappleUITests.swift; sourceTree = "<group>"; };
 		49596F091C67CDF000A29D62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49596F151C67CE4400A29D62 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		49596F1B1C73BB3200A29D62 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		49596F1D1C73F7E900A29D62 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		A625863F9E34F89328C30079 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B29EA0722DC22DB53A7F698C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +86,7 @@
 		49596EDB1C67CDF000A29D62 = {
 			isa = PBXGroup;
 			children = (
+				49596F1B1C73BB3200A29D62 /* Settings.bundle */,
 				49596EE61C67CDF000A29D62 /* Pineapple */,
 				49596EFB1C67CDF000A29D62 /* PineappleTests */,
 				49596F061C67CDF000A29D62 /* PineappleUITests */,
@@ -107,6 +112,7 @@
 				49596EE71C67CDF000A29D62 /* AppDelegate.swift */,
 				49596EEB1C67CDF000A29D62 /* Main.storyboard */,
 				49596F151C67CE4400A29D62 /* MapViewController.swift */,
+				49596F1D1C73F7E900A29D62 /* ProfileView.swift */,
 				49596EEE1C67CDF000A29D62 /* Assets.xcassets */,
 				49596EF01C67CDF000A29D62 /* LaunchScreen.storyboard */,
 				49596EF31C67CDF000A29D62 /* Info.plist */,
@@ -256,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49596F1C1C73BB3200A29D62 /* Settings.bundle in Resources */,
 				49596EF21C67CDF000A29D62 /* LaunchScreen.storyboard in Resources */,
 				49596EEF1C67CDF000A29D62 /* Assets.xcassets in Resources */,
 				49596EED1C67CDF000A29D62 /* Main.storyboard in Resources */,
@@ -332,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49596EE81C67CDF000A29D62 /* AppDelegate.swift in Sources */,
+				49596F1E1C73F7E900A29D62 /* ProfileView.swift in Sources */,
 				49596F161C67CE4400A29D62 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

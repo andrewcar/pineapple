@@ -1,3 +1,3 @@
-pod 'Mapbox-iOS-SDK', '~> 3.0.1'
+pod 'Mapbox-iOS-SDK', '~>3.0.1'
 
 use_frameworks!
