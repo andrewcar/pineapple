@@ -21,11 +21,6 @@
                     <navigationItem key="navigationItem" id="5q7-go-hro"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="gub-MG-cP6">
-                    <rect key="frame" x="0.0" y="0.0" width="460" height="460"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="832" y="418"/>
         </scene>
