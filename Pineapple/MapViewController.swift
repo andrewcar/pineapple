@@ -163,7 +163,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func profileContentHiddenValues() {
         
         // Profile name
-        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2, self.profileView.frame.height * 0.3 - self.profileView.nameLabel.frame.height, self.profileView.frame.width - self.profileView.profilePicImageView.frame.width - self.padding * 3, 0)
+        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileView.frame.width - self.profileView.profilePicImageView.frame.width - self.padding * 3, 0)
     }
     
     func profileOpenValues() {
