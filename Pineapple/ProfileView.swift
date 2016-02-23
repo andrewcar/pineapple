@@ -22,12 +22,18 @@ class ProfileView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+                
         profilePicImageView.frame = CGRectMake(2, 2, bounds.width - 4, bounds.height - 4)
         profilePicImageView.image = UIImage(named: "bruh")
-        profilePicImageView.layer.cornerRadius = profilePicImageView.frame.width / 2
-        profilePicImageView.layer.masksToBounds = true
         addSubview(profilePicImageView)
+        
+        nameLabel.textAlignment = NSTextAlignment.Center
+        nameLabel.textColor = UIColor.blackColor()
+        nameLabel.numberOfLines = 0
+        nameLabel.adjustsFontSizeToFitWidth = true
+        nameLabel.font = UIFont.boldSystemFontOfSize(42)
+        nameLabel.text = ""
+        addSubview(nameLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
