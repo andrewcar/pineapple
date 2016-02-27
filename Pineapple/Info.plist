@@ -2,12 +2,57 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>MGLMapboxMetricsEnabled</key>
-	<true/>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoiYW5kcmV3Y2FyIiwiYSI6ImNpZ2NkMTV0eTM2em5hZGtuMWtobnB2dzMifQ.T6Ne-u2kayvfJYvnIhvAvA</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>facebook.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>fbcdn.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>akamaihd.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+		</dict>
+	</dict>
+	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>CFBundleDisplayName</key>
+	<string>Yuge</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbshareextension</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbapi</string>
+	</array>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb989209531156139</string>
+            </array>
+        </dict>
+	</array>
+    <key>FacebookAppID</key>
+    <string>989209531156139</string>
+	<key>FacebookDisplayName</key>
+	<string>Yuge</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -28,6 +73,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoiYW5kcmV3Y2FyIiwiYSI6ImNpZ2NkMTV0eTM2em5hZGtuMWtobnB2dzMifQ.T6Ne-u2kayvfJYvnIhvAvA</string>
+	<key>MGLMapboxMetricsEnabled</key>
+	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
