@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 enum ProfileState {
     case ProfileClosed
@@ -16,7 +18,7 @@ enum ProfileState {
 class ProfileView: UIView {
     
     var profileState = ProfileState?()
-    var profilePicImageView: UIImageView = UIImageView()
+    var profilePicImageView: FBSDKProfilePictureView = FBSDKProfilePictureView()
     var scoreLabel: UILabel = UILabel()
     var nameLabel: UILabel = UILabel()
 
@@ -24,7 +26,8 @@ class ProfileView: UIView {
         super.init(frame: frame)
                 
         profilePicImageView.frame = CGRectMake(2, 2, bounds.width - 4, bounds.height - 4)
-        profilePicImageView.image = UIImage(named: "bruh")
+        profilePicImageView.profileID = "/me"
+//        profilePicImageView.image = DataSource.sharedInstance.updatedProfilePic()
         addSubview(profilePicImageView)
         
         nameLabel.textAlignment = NSTextAlignment.Center

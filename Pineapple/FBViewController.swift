@@ -10,7 +10,10 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-class FBViewController: UIViewController, FBSDKLoginButtonDelegate {
+class FBViewController: UIViewController {
+    
+    @IBOutlet weak var loginButton: MaterialButton!
+    
     override func viewDidLoad() {
         
         if FBSDKAccessToken.currentAccessToken() == nil {
@@ -18,27 +21,27 @@ class FBViewController: UIViewController, FBSDKLoginButtonDelegate {
         } else {
             print("Logged in")
         }
-        
-        let loginButton = FBSDKLoginButton()
-        loginButton.readPermissions = ["public_profile", "email", "user_friends"]
-        loginButton.center = view.center
-        loginButton.delegate = self
-        
-        view.addSubview(loginButton)
     }
     
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
-        if error == nil {
-            print("Login complete")
-            self.performSegueWithIdentifier("showNew", sender: self)
-        } else {
-            print("Error: \(error.localizedDescription)")
-
+        if NSUserDefaults.standardUserDefaults().valueForKey("uid") != nil {
+            performSegueWithIdentifier("showNew", sender: nil)
         }
     }
     
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User logged out")
+    @IBAction func fbButtonTapped(sender: UIButton) {
+        let facebookLogin = FBSDKLoginManager()
+        
+        facebookLogin.logInWithReadPermissions(["public_profile", "email", "user_friends", "user_birthday", "user_relationship_details"], fromViewController: self) { (facebookResult, facebookError) -> Void in
+            if facebookError != nil {
+                print("facebook had an error: \(facebookError.debugDescription)")
+            } else {
+                print("facebook result: \(facebookResult.debugDescription)")
+                NSUserDefaults.standardUserDefaults().setValue(FBSDKAccessToken.currentAccessToken().tokenString, forKey: "uid")
+                self.performSegueWithIdentifier("showNew", sender: nil)
+            }
+        }
     }
 }

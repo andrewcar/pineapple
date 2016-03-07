@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Map View Controller-->
@@ -35,10 +36,31 @@
                     <view key="view" contentMode="scaleToFill" id="tQO-IA-n4y">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyo-Hv-XOd" customClass="MaterialButton" customModule="Pineapple" customModuleProvider="target">
+                                <rect key="frame" x="193" y="272" width="214" height="55"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wyo-Hv-XOd" secondAttribute="height" multiplier="214:55" id="0CK-4O-WtS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Log in to Facebook">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="fbButtonTapped:" destination="MBp-K9-bIX" eventType="touchUpInside" id="8ot-LK-mRw"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wyo-Hv-XOd" firstAttribute="centerY" secondItem="tQO-IA-n4y" secondAttribute="centerY" id="Fro-5r-kA2"/>
+                            <constraint firstItem="wyo-Hv-XOd" firstAttribute="centerX" secondItem="tQO-IA-n4y" secondAttribute="centerX" id="mZL-be-itz"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <segue destination="IO8-gJ-V6T" kind="presentation" identifier="showNew" id="wMh-pQ-NDw"/>
+                        <outlet property="loginButton" destination="wyo-Hv-XOd" id="NkQ-PD-2vp"/>
+                        <segue destination="IO8-gJ-V6T" kind="presentation" identifier="showNew" animates="NO" id="wMh-pQ-NDw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xmG-Sm-BMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

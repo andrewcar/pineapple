@@ -8,6 +8,7 @@
 
 import UIKit
 import Mapbox
+import FBSDKCoreKit
 
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
@@ -184,6 +185,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
         // Profile name
         self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileView.frame.width - self.profileView.profilePicImageView.frame.width - self.padding * 3, 40)
-        self.profileView.nameLabel.text = "Giannis Antetokounmpo"
+        self.profileView.nameLabel.text = "Andrew Carvajal"
     }
 }
