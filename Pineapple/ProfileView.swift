@@ -18,16 +18,18 @@ enum ProfileState {
 class ProfileView: UIView {
     
     var profileState = ProfileState?()
-    var profilePicImageView: FBSDKProfilePictureView = FBSDKProfilePictureView()
+    var profilePicImageView: UIImageView = UIImageView()
     var scoreLabel: UILabel = UILabel()
     var nameLabel: UILabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-                
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateProfilePic", name: "GotCurrentProfilePic", object: nil)
+        
+        DataSource.sharedInstance.getCurrentProfilePic()
+
         profilePicImageView.frame = CGRectMake(2, 2, bounds.width - 4, bounds.height - 4)
-        profilePicImageView.profileID = "/me"
-//        profilePicImageView.image = DataSource.sharedInstance.updatedProfilePic()
         addSubview(profilePicImageView)
         
         nameLabel.textAlignment = NSTextAlignment.Center
@@ -41,5 +43,10 @@ class ProfileView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func updateProfilePic() {
+        profilePicImageView.image = DataSource.sharedInstance.profilePic
+        print("image: \(profilePicImageView.image)")
     }
 }
