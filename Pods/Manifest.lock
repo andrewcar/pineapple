@@ -14,7 +14,7 @@ PODS:
 DEPENDENCIES:
   - FBSDKCoreKit (~> 4.10)
   - FBSDKLoginKit (~> 4.10)
-  - Mapbox-iOS-SDK (~> 3.0.1)
+  - Mapbox-iOS-SDK
 
 SPEC CHECKSUMS:
   Bolts: f52a250053bb517ca874523c3913776359ab3def

@@ -1,6 +1,6 @@
 use_frameworks!
 
-pod 'Mapbox-iOS-SDK', '~>3.0.1'
+pod 'Mapbox-iOS-SDK'
 
 
 pod 'FBSDKCoreKit', '~> 4.10'
