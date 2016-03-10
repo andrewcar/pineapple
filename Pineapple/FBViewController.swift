@@ -15,7 +15,6 @@ class FBViewController: UIViewController {
     @IBOutlet weak var loginButton: MaterialButton!
     
     override func viewDidLoad() {
-        
         if FBSDKAccessToken.currentAccessToken() == nil {
             print("Not logged in")
         } else {

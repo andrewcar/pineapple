@@ -24,8 +24,11 @@ class DataSource {
                 print("Error: \(error.debugDescription)")
             } else {
                 if data != nil {
-                    self.profilePic = UIImage(data: data!)!
                     NSNotificationCenter.defaultCenter().postNotificationName("GotCurrentProfilePic", object: nil)
+                    print("got profile pic data and posted notification")
+                    print("DataSource.sharedInstance.profilePic just before setting it: \(DataSource.sharedInstance.profilePic)")
+                    self.profilePic = UIImage(data: data!)!
+                    print("DataSource.sharedInstance.profilePic just after setting it: \(DataSource.sharedInstance.profilePic)")
                 } else {
                     print("data was nil")
                 }

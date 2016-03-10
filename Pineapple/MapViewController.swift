@@ -19,19 +19,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     var profileView = ProfileView()
     var profileButton = UIButton()
     
-    
-    
     // MARK: View Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         addMap()
-        addProfileButton()
+        addProfile()
         setCamera()
         addLocationManager()
     }
-    
-    
     
     // MARK: Helper Functions
     
@@ -41,14 +37,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         mapboxView.styleURL = NSURL(string: "mapbox://styles/andrewcar/cigjifhox00059em63qbqemcm")
         mapboxView.showsUserLocation = true
         mapboxView.tintColor = UIColor.clearColor()
-        mapboxView.allowsRotating = false
+        mapboxView.allowsRotating = true
         mapboxView.pitchEnabled = true
         mapboxView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.addSubview(mapboxView)
     }
     
     func setCamera() {
-        
         // If location manager returns user location, set mapCenter to it, else, set mapCenter to NYC.
         if locationManager.location?.coordinate != nil {
             mapCenter = locationManager.location?.coordinate
@@ -71,22 +66,21 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         locationManager.startUpdatingHeading()
     }
     
-    func addProfileButton() {
-        
+    func addProfile() {
         profileView.profileState = ProfileState.ProfileClosed
         profileClosedValues()
         
-        // Profile view config
+        // Configure the profile view.
         profileView.backgroundColor = UIColor.whiteColor()
         profileView.layer.cornerRadius = profileView.frame.width / 2
         profileView.layer.masksToBounds = true
         
-        // Profile pic config
+        // Set the profile pic image view corner radius.
         profileView.profilePicImageView.layer.cornerRadius = profileView.profilePicImageView.frame.width / 2
         profileView.profilePicImageView.layer.masksToBounds = true
         
-        // Profile button config
-        profileButton.addTarget(self, action: "closeOrOpenProfile", forControlEvents: UIControlEvents.TouchUpInside)
+        // Configure the profile button.
+        profileButton.addTarget(self, action: "toggleProfile", forControlEvents: UIControlEvents.TouchUpInside)
         profileButton.backgroundColor = UIColor.clearColor()
         profileButton.titleLabel!.font = UIFont.boldSystemFontOfSize(18)
         
@@ -94,7 +88,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         view.addSubview(profileButton)
     }
     
-    func closeOrOpenProfile() {
+    func toggleProfile() {
         if profileView.profileState == ProfileState.ProfileClosed {
             openProfile()
         } else {
@@ -105,21 +99,29 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func openProfile() {
         self.profileView.profileState = ProfileState.ProfileOpen
 
+        // Animate the profile opening and its content appearing after.
         UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
             self.profileOpenValues()
             
+            UIView.animateWithDuration(0.15, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                
+                self.profileButton.setTitle("close", forState: UIControlState.Normal)
+
+                }, completion: { (Bool) -> Void in
+                    self.profileContentHiddenValues()
+            })
+            
             }) { (Bool) -> Void in
-                self.profileContentHiddenValues()
                 self.showProfileContent()
         }
     }
     
     func closeProfile() {
         self.profileView.profileState = ProfileState.ProfileClosed
-
         self.hideProfileContent()
 
+        // Hide all the profile content and then animate the profile closed.
         UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
             self.profileClosedValues()
@@ -132,7 +134,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func showProfileContent() {
         UIView.animateWithDuration(0.7, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
-            self.profileContentShownValues()
+            self.nameLabelShownValues()
+            
+            UIView.animateWithDuration(0.1, delay: 0.5, usingSpringWithDamping: 0, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                
+                self.ratingImageViewShownValues()
+                
+                }, completion: { (Bool) -> Void in
+                    return
+            })
             
             }) { (Bool) -> Void in
                 return
@@ -148,7 +158,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     // MARK: Profile Values
     
     func profileClosedValues() {
-        
         // Profile view
         self.profileView.frame = CGRectMake(self.padding, self.padding + 5, self.view.frame.width * 0.15, self.view.frame.width * 0.15)
         
@@ -162,29 +171,32 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     }
     
     func profileContentHiddenValues() {
-        
-        // Profile name
+        // Name label
         self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileView.frame.width - self.profileView.profilePicImageView.frame.width - self.padding * 3, 0)
+        
+        // Rating view
+        self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2 + 8, self.profileView.nameLabel.frame.origin.y, self.profileView.nameLabel.frame.width * 0.9, 0)
     }
     
     func profileOpenValues() {
-        
         // Profile view
         self.profileView.frame = CGRectMake(self.padding, self.padding + 5, self.view.frame.width - self.padding * 2, self.view.frame.width - self.padding * 2)
         
         // Profile button
         self.profileButton.frame = CGRectMake(self.profileView.frame.width - 45 - self.padding, self.profileView.frame.origin.y + self.padding, 50, 30)
-        self.profileButton.setTitle("close", forState: UIControlState.Normal)
         self.profileButton.setTitleColor(UIColor(red: 192/255.0, green: 57/255.0, blue: 43/255.0, alpha: 1), forState: UIControlState.Normal)
         
-        // Profile pic
+        // Profile pic image view
         self.profileView.profilePicImageView.frame = CGRectMake(self.padding, self.padding, self.profileView.frame.width * 0.3, self.profileView.frame.width * 0.3)
     }
     
-    func profileContentShownValues() {
-        
-        // Profile name
+    func nameLabelShownValues() {
         self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileView.frame.width - self.profileView.profilePicImageView.frame.width - self.padding * 3, 40)
         self.profileView.nameLabel.text = "Andrew Carvajal"
+    }
+    
+    func ratingImageViewShownValues() {
+        self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2 + 8, self.profileView.nameLabel.frame.origin.y - 40, self.profileView.ratingImageView.frame.width, 40)
+
     }
 }
