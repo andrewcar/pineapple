@@ -169,6 +169,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
         // Profile pic
         self.profileView.profilePicImageView.frame = CGRectMake(2, 2, self.profileView.frame.width - 4, self.profileView.frame.height - 4)
+        
+        self.profileView.showLocationSwitch.hidden = true
     }
     
     func profileContentHiddenValues() {
@@ -183,7 +185,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
         // Attend count label
         self.profileView.attendCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.hostCountLabel.frame.maxY + self.edgePadding, self.profileView.frame.width - self.edgePadding * 2, 0)
-
+        
+        // Show location label
+        self.profileView.showLocationLabel.frame = CGRectMake(self.edgePadding, self.profileView.attendCountLabel.frame.maxY + self.edgePadding, self.profileView.frame.width - self.edgePadding * 2, 0)
+        
+        // Show location switch
+        self.profileView.showLocationSwitch.frame = CGRectMake(self.profileView.showLocationLabel.frame.maxX + self.innerPadding, self.profileView.attendCountLabel.frame.maxY + self.edgePadding, self.profileView.showLocationSwitch.frame.width, 0)
+        self.profileView.showLocationSwitch.hidden = true
     }
     
     func profileOpenValues() {
@@ -204,10 +212,17 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         self.profileView.nameLabel.text = "Andrew Carvajal"
         
         // Host count label
-        self.profileView.hostCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.profilePicImageView.frame.maxY + self.edgePadding, self.profileView.frame.width - self.edgePadding * 2, 20)
+        self.profileView.hostCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.profilePicImageView.frame.maxY + self.edgePadding, self.profileView.frame.width - self.edgePadding * 2, 22)
         
         // Attend count label
-        self.profileView.attendCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.hostCountLabel.frame.maxY + self.innerPadding, self.profileView.frame.width - self.edgePadding * 2, 20)
+        self.profileView.attendCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.hostCountLabel.frame.maxY + self.innerPadding, self.profileView.frame.width - self.edgePadding * 2, 22)
+        
+        // Show location label
+        self.profileView.showLocationLabel.frame = CGRectMake(self.edgePadding, self.profileView.attendCountLabel.frame.maxY + self.edgePadding + 2, self.profileView.frame.width - self.edgePadding * 2 - self.innerPadding - self.profileView.showLocationSwitch.frame.width, 26)
+        
+        // Show location switch
+        self.profileView.showLocationSwitch.frame = CGRectMake(self.profileView.showLocationLabel.frame.maxX + self.innerPadding - 10, self.profileView.attendCountLabel.frame.maxY + self.edgePadding, self.profileView.showLocationSwitch.frame.width, self.profileView.showLocationSwitch.frame.height)
+        self.profileView.showLocationSwitch.hidden = false
     }
     
     func ratingImageViewShownValues() {

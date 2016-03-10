@@ -23,6 +23,8 @@ class ProfileView: UIView {
     var nameLabel: UILabel = UILabel()
     var hostCountLabel: UILabel = UILabel()
     var attendCountLabel: UILabel = UILabel()
+    var showLocationLabel: UILabel = UILabel()
+    var showLocationSwitch: UISwitch = UISwitch()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,6 +36,7 @@ class ProfileView: UIView {
         
         // Rating view
         ratingImageView = UIImageView(image: UIImage(named: "rating stars"))
+        ratingImageView.frame = CGRectMake(CGRectGetMinX(ratingImageView.frame), CGRectGetMinY(ratingImageView.frame), CGRectGetWidth(ratingImageView.frame), 0)
         
         // Name label
         nameLabel.textAlignment = NSTextAlignment.Center
@@ -57,11 +60,20 @@ class ProfileView: UIView {
         attendCountLabel.font = UIFont.systemFontOfSize(21)
         attendCountLabel.text = "Attended no parties"
         
+        // Show location label
+        showLocationLabel.textAlignment = NSTextAlignment.Center
+        showLocationLabel.textColor = UIColor.darkGrayColor()
+        showLocationLabel.numberOfLines = 1
+        showLocationLabel.font = UIFont.italicSystemFontOfSize(21)
+        showLocationLabel.text = "Show location to party"
+        
         addSubview(profilePicImageView)
         addSubview(ratingImageView)
         addSubview(nameLabel)
         addSubview(hostCountLabel)
         addSubview(attendCountLabel)
+        addSubview(showLocationLabel)
+        addSubview(showLocationSwitch)
     }
     
     required init?(coder aDecoder: NSCoder) {
