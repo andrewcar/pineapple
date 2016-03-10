@@ -60,7 +60,7 @@
                     </view>
                     <connections>
                         <outlet property="loginButton" destination="wyo-Hv-XOd" id="NkQ-PD-2vp"/>
-                        <segue destination="IO8-gJ-V6T" kind="presentation" identifier="showNew" animates="NO" id="wMh-pQ-NDw"/>
+                        <segue destination="IO8-gJ-V6T" kind="show" identifier="showNew" animates="NO" id="wMh-pQ-NDw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xmG-Sm-BMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
