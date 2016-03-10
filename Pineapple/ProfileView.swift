@@ -21,6 +21,8 @@ class ProfileView: UIView {
     var profilePicImageView: UIImageView = UIImageView()
     var ratingImageView: UIImageView = UIImageView()
     var nameLabel: UILabel = UILabel()
+    var hostCountLabel: UILabel = UILabel()
+    var attendCountLabel: UILabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,9 +43,25 @@ class ProfileView: UIView {
         nameLabel.font = UIFont.boldSystemFontOfSize(42)
         nameLabel.text = ""
         
+        // Host count label
+        hostCountLabel.textAlignment = NSTextAlignment.Right
+        hostCountLabel.textColor = UIColor.darkGrayColor()
+        hostCountLabel.numberOfLines = 1
+        hostCountLabel.font = UIFont.systemFontOfSize(21)
+        hostCountLabel.text = "Hosted: 0 after parties"
+        
+        // Attend count label
+        attendCountLabel.textAlignment = NSTextAlignment.Right
+        attendCountLabel.textColor = UIColor.darkGrayColor()
+        attendCountLabel.numberOfLines = 1
+        attendCountLabel.font = UIFont.systemFontOfSize(21)
+        attendCountLabel.text = "Attended: 0 after parties"
+        
         addSubview(profilePicImageView)
-        addSubview(nameLabel)
         addSubview(ratingImageView)
+        addSubview(nameLabel)
+        addSubview(hostCountLabel)
+        addSubview(attendCountLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {

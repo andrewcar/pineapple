@@ -12,7 +12,8 @@ import FBSDKCoreKit
 
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
-    var padding: CGFloat = 20
+    var edgePadding: CGFloat = 20
+    var innerPadding: CGFloat = 10
     var mapboxView: MGLMapView!
     var locationManager: CLLocationManager = CLLocationManager()
     var mapCenter: CLLocationCoordinate2D?
@@ -134,9 +135,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func showProfileContent() {
         UIView.animateWithDuration(0.7, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
-            self.nameLabelShownValues()
+            self.profileLabelsShownValues()
             
-            UIView.animateWithDuration(0.1, delay: 0.5, usingSpringWithDamping: 0, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            UIView.animateWithDuration(0.1, delay: 0.3, usingSpringWithDamping: 0, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                 
                 self.ratingImageViewShownValues()
                 
@@ -159,7 +160,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     func profileClosedValues() {
         // Profile view
-        self.profileView.frame = CGRectMake(self.padding, self.padding + 5, self.view.frame.width * 0.15, self.view.frame.width * 0.15)
+        self.profileView.frame = CGRectMake(self.edgePadding, self.edgePadding + 5, self.view.frame.width * 0.15, self.view.frame.width * 0.15)
         
         // Profile button
         self.profileButton.frame = CGRectMake(self.profileView.frame.origin.x, self.profileView.frame.origin.y, self.profileView.frame.width, self.profileView.frame.height)
@@ -172,31 +173,44 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     func profileContentHiddenValues() {
         // Name label
-        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileView.frame.width - self.profileView.profilePicImageView.frame.width - self.padding * 3, 0)
+        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.edgePadding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileView.frame.width - self.profileView.profilePicImageView.frame.width - self.edgePadding * 3, 0)
         
         // Rating view
-        self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2 + 8, self.profileView.nameLabel.frame.origin.y, self.profileView.nameLabel.frame.width * 0.9, 0)
+        self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.edgePadding * 2 + 8, self.profileView.nameLabel.frame.origin.y, self.profileView.nameLabel.frame.width * 0.9, 0)
+        
+        // Host count label
+        self.profileView.hostCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.profilePicImageView.frame.maxY + self.edgePadding, self.profileView.frame.width - self.edgePadding * 2, 0)
+        
+        // Attend count label
+        self.profileView.attendCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.hostCountLabel.frame.maxY + self.edgePadding, self.profileView.frame.width - self.edgePadding * 2, 0)
+
     }
     
     func profileOpenValues() {
         // Profile view
-        self.profileView.frame = CGRectMake(self.padding, self.padding + 5, self.view.frame.width - self.padding * 2, self.view.frame.width - self.padding * 2)
+        self.profileView.frame = CGRectMake(self.edgePadding, self.edgePadding + 5, self.view.frame.width - self.edgePadding * 2, self.view.frame.width - self.edgePadding * 2)
         
         // Profile button
-        self.profileButton.frame = CGRectMake(self.profileView.frame.width - 45 - self.padding, self.profileView.frame.origin.y + self.padding, 50, 30)
+        self.profileButton.frame = CGRectMake(self.profileView.frame.width - 45 - self.edgePadding, self.profileView.frame.origin.y + self.edgePadding, 50, 30)
         self.profileButton.setTitleColor(UIColor(red: 192/255.0, green: 57/255.0, blue: 43/255.0, alpha: 1), forState: UIControlState.Normal)
         
         // Profile pic image view
-        self.profileView.profilePicImageView.frame = CGRectMake(self.padding, self.padding, self.profileView.frame.width * 0.3, self.profileView.frame.width * 0.3)
+        self.profileView.profilePicImageView.frame = CGRectMake(self.edgePadding, self.edgePadding, self.profileView.frame.width * 0.3, self.profileView.frame.width * 0.3)
     }
     
-    func nameLabelShownValues() {
-        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileView.frame.width - self.profileView.profilePicImageView.frame.width - self.padding * 3, 40)
+    func profileLabelsShownValues() {
+        // Name label
+        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.edgePadding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileView.frame.width - self.profileView.profilePicImageView.frame.width - self.edgePadding * 3, 40)
         self.profileView.nameLabel.text = "Andrew Carvajal"
+        
+        // Host count label
+        self.profileView.hostCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.profilePicImageView.frame.maxY + self.edgePadding, self.profileView.frame.width - self.edgePadding * 2, 20)
+        
+        // Attend count label
+        self.profileView.attendCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.hostCountLabel.frame.maxY + self.innerPadding, self.profileView.frame.width - self.edgePadding * 2, 20)
     }
     
     func ratingImageViewShownValues() {
-        self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2 + 8, self.profileView.nameLabel.frame.origin.y - 40, self.profileView.ratingImageView.frame.width, 40)
-
+        self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.edgePadding * 2 + 8, self.profileView.nameLabel.frame.origin.y - 40, self.profileView.ratingImageView.frame.width, 40)
     }
 }
