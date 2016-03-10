@@ -48,14 +48,14 @@ class ProfileView: UIView {
         hostCountLabel.textColor = UIColor.darkGrayColor()
         hostCountLabel.numberOfLines = 1
         hostCountLabel.font = UIFont.systemFontOfSize(21)
-        hostCountLabel.text = "Hosted: 0 after parties"
+        hostCountLabel.text = "Hosted no parties"
         
         // Attend count label
         attendCountLabel.textAlignment = NSTextAlignment.Right
         attendCountLabel.textColor = UIColor.darkGrayColor()
         attendCountLabel.numberOfLines = 1
         attendCountLabel.font = UIFont.systemFontOfSize(21)
-        attendCountLabel.text = "Attended: 0 after parties"
+        attendCountLabel.text = "Attended no parties"
         
         addSubview(profilePicImageView)
         addSubview(ratingImageView)
