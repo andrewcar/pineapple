@@ -14,6 +14,7 @@ class DataSource {
     
     static let sharedInstance = DataSource()
     var profilePic = UIImage()
+    var userName = String()
 
     private init() {}
     
@@ -24,15 +25,27 @@ class DataSource {
                 print("Error: \(error.debugDescription)")
             } else {
                 if data != nil {
-                    NSNotificationCenter.defaultCenter().postNotificationName("GotCurrentProfilePic", object: nil)
-                    print("got profile pic data and posted notification")
-                    print("DataSource.sharedInstance.profilePic just before setting it: \(DataSource.sharedInstance.profilePic)")
                     self.profilePic = UIImage(data: data!)!
-                    print("DataSource.sharedInstance.profilePic just after setting it: \(DataSource.sharedInstance.profilePic)")
+                    NSNotificationCenter.defaultCenter().postNotificationName("GotCurrentProfilePic", object: nil)
                 } else {
                     print("data was nil")
                 }
             }
         }.resume()
+    }
+    
+    func getCurrentUserName() {
+        FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name"], tokenString: FBSDKAccessToken.currentAccessToken().tokenString, version: nil, HTTPMethod: "GET").startWithCompletionHandler { (connection, result, error) -> Void in
+            if error != nil {
+                print(error.debugDescription)
+            } else {
+                if result == nil {
+                    self.userName = ""
+                } else {
+                    self.userName = (result as! Dictionary)["name"]!
+                    NSNotificationCenter.defaultCenter().postNotificationName("GotCurrentUserName", object: nil)
+                }
+            }
+        }
     }
 }

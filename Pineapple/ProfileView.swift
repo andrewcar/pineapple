@@ -29,7 +29,9 @@ class ProfileView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateProfilePic", name: "GotCurrentProfilePic", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateUserName", name: "GotCurrentUserName", object: nil)
         DataSource.sharedInstance.getCurrentProfilePic()
+        DataSource.sharedInstance.getCurrentUserName()
         
         // Profile pic image view
         profilePicImageView.frame = CGRectMake(2, 2, bounds.width - 4, bounds.height - 4)
@@ -44,29 +46,30 @@ class ProfileView: UIView {
         nameLabel.numberOfLines = 0
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.font = UIFont.boldSystemFontOfSize(42)
-        nameLabel.text = ""
         
         // Host count label
-        hostCountLabel.textAlignment = NSTextAlignment.Right
+        hostCountLabel.textAlignment = NSTextAlignment.Center
         hostCountLabel.textColor = UIColor.darkGrayColor()
         hostCountLabel.numberOfLines = 1
+        hostCountLabel.adjustsFontSizeToFitWidth = true
         hostCountLabel.font = UIFont.systemFontOfSize(21)
-        hostCountLabel.text = "Hosted no parties"
+        hostCountLabel.text = "You have hosted no parties."
         
         // Attend count label
-        attendCountLabel.textAlignment = NSTextAlignment.Right
+        attendCountLabel.textAlignment = NSTextAlignment.Center
         attendCountLabel.textColor = UIColor.darkGrayColor()
         attendCountLabel.numberOfLines = 1
+        attendCountLabel.adjustsFontSizeToFitWidth = true
         attendCountLabel.font = UIFont.systemFontOfSize(21)
-        attendCountLabel.text = "Attended no parties"
+        attendCountLabel.text = "You have attended no parties"
         
         // Show location label
-        showLocationLabel.textAlignment = NSTextAlignment.Center
-        showLocationLabel.textColor = UIColor.darkGrayColor()
+        showLocationLabel.textAlignment = NSTextAlignment.Right
+        showLocationLabel.textColor = UIColor.lightGrayColor()
         showLocationLabel.numberOfLines = 1
-        showLocationLabel.font = UIFont.italicSystemFontOfSize(21)
+        showLocationLabel.font = UIFont.italicSystemFontOfSize(18)
         showLocationLabel.text = "Show location to party"
-        
+                
         addSubview(profilePicImageView)
         addSubview(ratingImageView)
         addSubview(nameLabel)
@@ -81,11 +84,10 @@ class ProfileView: UIView {
     }
     
     func updateProfilePic() {
-        print("got notification and setting the image to the property containing the data received")
-        print("DataSource.sharedInstance.profilePic: \(DataSource.sharedInstance.profilePic)")
         profilePicImageView.image = DataSource.sharedInstance.profilePic
-        print("image: \(profilePicImageView.image)")
-        print("DataSource.sharedInstance.profilePic: \(DataSource.sharedInstance.profilePic)")
-
+    }
+    
+    func updateUserName() {
+        nameLabel.text = DataSource.sharedInstance.userName
     }
 }
