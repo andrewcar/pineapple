@@ -9,29 +9,59 @@
 import UIKit
 import Mapbox
 import FBSDKCoreKit
+import AVFoundation
 
-class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
+enum FeedState {
+    case FeedHidden
+    case FeedMinimized
+    case FeedShowing
+}
+
+class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
     
+    var feedState = FeedState?()
+    
+    var feedPan = UIPanGestureRecognizer()
+
+    var openProfileSound: AVAudioPlayer!
+    var closeProfileSound: AVAudioPlayer!
+
+    var lastLocation: CGPoint = CGPointMake(0, 0)
     var edgePadding: CGFloat = 20
     var innerPadding: CGFloat = 10
-    var profileClosedWidth: CGFloat = CGFloat()
-    var profileOpenWidth: CGFloat = CGFloat()
-    var labelWidth: CGFloat = CGFloat()
-    var switchSize: CGSize = CGSize()
+    var profileClosedWidth = CGFloat()
+    var profileOpenWidth = CGFloat()
+    var labelWidth = CGFloat()
+    var switchSize = CGSize()
+    var feedHiddenHeight = CGFloat()
+    var feedShowingHeight = CGFloat()
+    
+    var locationManager = CLLocationManager()
     var mapboxView: MGLMapView!
-    var locationManager: CLLocationManager = CLLocationManager()
     var mapCenter: CLLocationCoordinate2D?
     var profileView = ProfileView()
     var profileButton = UIButton()
+    var feedView = UIView()
     
     // MARK: View Lifecycle
+    
+    override func awakeFromNib() {
+        view.userInteractionEnabled = true
+        view.addGestureRecognizer(feedPan)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        feedState = .FeedMinimized
+        
+        feedPan = UIPanGestureRecognizer(target: self, action: "panDetected:")
+        
+        addSounds()
         addMap()
         addProfile()
         setCamera()
         addLocationManager()
+        addFeed()
         
         profileOpenWidth = self.view.frame.width - self.edgePadding * 2
     }
@@ -96,6 +126,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         view.addSubview(profileButton)
     }
     
+    func addSounds() {
+        let audioSession = AVAudioSession.sharedInstance()
+        if audioSession.otherAudioPlaying {
+            _ = try? audioSession.setCategory(AVAudioSessionCategoryAmbient, withOptions: .MixWithOthers)
+            _ = try? audioSession.setActive(true, withOptions: [])
+        }
+    }
+    
     func toggleProfile() {
         if profileView.profileState == ProfileState.ProfileClosed {
             openProfile()
@@ -106,6 +144,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     func openProfile() {
         self.profileView.profileState = ProfileState.ProfileOpen
+        
+        playAudioFile("FartSound", type: "m4a")
 
         // Animate the profile opening and then its content appearing.
         UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
@@ -128,6 +168,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func closeProfile() {
         self.profileView.profileState = ProfileState.ProfileClosed
         self.hideProfileContent()
+        
+        playAudioFile("Pop", type: "m4a")
 
         // Hide all the profile content and then animate the profile closed.
         UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
@@ -162,7 +204,84 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         self.profileContentHiddenValues()
     }
     
+    func playAudioFile(file: NSString, type: NSString) {
+        let path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)!
+        let url = NSURL.fileURLWithPath(path)
+        
+        do {
+            let sound = try AVAudioPlayer(contentsOfURL: url)
+            openProfileSound = sound
+            sound.play()
+        } catch {
+            print("Player not available")
+        }
+    }
     
+    func addFeed() {
+        self.feedView = UIView()
+        self.feedView.backgroundColor = UIColor.blackColor()
+        self.feedView.layer.cornerRadius = 20
+        self.view.addSubview(self.feedView)
+        self.feedMinimizedValues()
+    }
+    
+    func toggleFeed() {
+        if feedState == .FeedMinimized {
+            
+        } else if feedState == .FeedShowing {
+            
+        }
+    }
+    
+    // MARK: Touches
+    
+    func panDetected(sender: UIPanGestureRecognizer) {
+        let translation = sender.translationInView(feedView)
+        
+        if feedView.frame.contains(sender.locationInView(sender.view)) {
+            feedView.center = CGPointMake(lastLocation.x, lastLocation.y + translation.y)
+        }
+        
+        if feedPan.state == UIGestureRecognizerState.Began {
+            UIView.animateWithDuration(2, animations: { () -> Void in
+                self.feedView.layer.cornerRadius = 20
+                }, completion: { (Bool) -> Void in
+                    return
+            })
+        }
+        
+        if feedPan.state == UIGestureRecognizerState.Ended {
+            
+            if feedView.frame.contains(sender.locationInView(sender.view)) {
+                
+                if translation.y > 100 {
+                    UIView.animateWithDuration(0.426, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                        self.feedView.frame = CGRectMake(0, self.view.frame.height - 100, self.feedView.frame.width, self.feedView.frame.height)
+                        }, completion: { (Bool) -> Void in
+                            self.feedState = .FeedShowing
+                    })
+                } else {
+                    UIView.animateWithDuration(0.426, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                        self.feedView.frame = CGRectMake(0, self.view.frame.origin.y, self.feedView.frame.width, self.feedView.frame.height)
+                        }, completion: { (Bool) -> Void in
+                            UIView.animateWithDuration(2, animations: { () -> Void in
+                                self.feedView.layer.cornerRadius = 0
+                                }, completion: { (Bool) -> Void in
+                                    return
+                            })
+                    })
+                }
+            } else {
+                return
+            }
+        }
+    }
+    
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        view.bringSubviewToFront(feedView)
+        lastLocation = feedView.center
+    }
     
     // MARK: Profile Values
     
@@ -238,5 +357,19 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     func ratingImageViewShownValues() {
         self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.edgePadding * 2 + 8, self.profileView.nameLabel.frame.origin.y - 40, self.profileView.ratingImageView.frame.width, 40)
+    }
+    
+    // MARK: Feed Values
+    
+    func feedHiddenValues() {
+        self.feedView.frame = CGRectMake(0, self.view.frame.maxY, self.view.frame.width, self.view.frame.height)
+    }
+    
+    func feedMinimizedValues() {
+        self.feedView.frame = CGRectMake(0, self.view.frame.maxY - 100, self.view.frame.width, self.view.frame.height)
+    }
+    
+    func feedShowingValues() {
+        self.feedView.frame = CGRectMake(0, self.view.frame.minY, self.view.frame.width, self.view.frame.height)
     }
 }

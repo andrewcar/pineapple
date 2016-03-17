@@ -25,8 +25,10 @@ class DataSource {
                 print("Error: \(error.debugDescription)")
             } else {
                 if data != nil {
-                    self.profilePic = UIImage(data: data!)!
-                    NSNotificationCenter.defaultCenter().postNotificationName("GotCurrentProfilePic", object: nil)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.profilePic = UIImage(data: data!)!
+                        NSNotificationCenter.defaultCenter().postNotificationName("GotCurrentProfilePic", object: nil)
+                    })
                 } else {
                     print("data was nil")
                 }

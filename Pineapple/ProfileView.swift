@@ -61,7 +61,7 @@ class ProfileView: UIView {
         attendCountLabel.numberOfLines = 1
         attendCountLabel.adjustsFontSizeToFitWidth = true
         attendCountLabel.font = UIFont.systemFontOfSize(21)
-        attendCountLabel.text = "You have attended no parties"
+        attendCountLabel.text = "You have attended no parties."
         
         // Show location label
         showLocationLabel.textAlignment = NSTextAlignment.Right
@@ -88,6 +88,10 @@ class ProfileView: UIView {
     }
     
     func updateUserName() {
-        nameLabel.text = DataSource.sharedInstance.userName
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.nameLabel.text = DataSource.sharedInstance.userName
+            })
+        })
     }
 }

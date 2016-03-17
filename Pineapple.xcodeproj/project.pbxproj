@@ -18,6 +18,10 @@
 		49596F161C67CE4400A29D62 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49596F151C67CE4400A29D62 /* MapViewController.swift */; };
 		49596F1C1C73BB3200A29D62 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49596F1B1C73BB3200A29D62 /* Settings.bundle */; };
 		4961B9D21C7FA96D00BCD7E7 /* FBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4961B9D11C7FA96D00BCD7E7 /* FBViewController.swift */; };
+		499F5E741C992A4C00B82931 /* Pop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 499F5E721C99286800B82931 /* Pop.m4a */; };
+		499F5E751C992A4C00B82931 /* BooshOpenSound.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 499F5E731C99286800B82931 /* BooshOpenSound.m4a */; };
+		499F5E761C992A4C00B82931 /* FartSound.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 499F5E711C99285F00B82931 /* FartSound.m4a */; };
+		499F5E781C9A019500B82931 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F5E771C9A019500B82931 /* FeedViewController.swift */; };
 		49FDB50B1C8193B4000458E2 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB50A1C8193B4000458E2 /* DataSource.swift */; };
 		D83716F9D755749E29D91C16 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C491A5B8ADE539BE151C9DF /* Pods.framework */; };
 /* End PBXBuildFile section */
@@ -58,6 +62,10 @@
 		49596F151C67CE4400A29D62 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		49596F1B1C73BB3200A29D62 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4961B9D11C7FA96D00BCD7E7 /* FBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBViewController.swift; sourceTree = "<group>"; };
+		499F5E711C99285F00B82931 /* FartSound.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = FartSound.m4a; sourceTree = "<group>"; };
+		499F5E721C99286800B82931 /* Pop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pop.m4a; sourceTree = "<group>"; };
+		499F5E731C99286800B82931 /* BooshOpenSound.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = BooshOpenSound.m4a; sourceTree = "<group>"; };
+		499F5E771C9A019500B82931 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		49FDB50A1C8193B4000458E2 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		A625863F9E34F89328C30079 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B29EA0722DC22DB53A7F698C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,6 +105,7 @@
 				4961B9D11C7FA96D00BCD7E7 /* FBViewController.swift */,
 				49596F151C67CE4400A29D62 /* MapViewController.swift */,
 				494F27901C7A041A00275370 /* ProfileView.swift */,
+				499F5E771C9A019500B82931 /* FeedViewController.swift */,
 				49359C621C88DEED005B1D2C /* MaterialButton.swift */,
 			);
 			name = View;
@@ -133,6 +142,7 @@
 				49596EE71C67CDF000A29D62 /* AppDelegate.swift */,
 				49FDB50A1C8193B4000458E2 /* DataSource.swift */,
 				49596EF31C67CDF000A29D62 /* Info.plist */,
+				499F5E701C99284E00B82931 /* Sounds */,
 			);
 			path = Pineapple;
 			sourceTree = "<group>";
@@ -153,6 +163,16 @@
 				49596F091C67CDF000A29D62 /* Info.plist */,
 			);
 			path = PineappleUITests;
+			sourceTree = "<group>";
+		};
+		499F5E701C99284E00B82931 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				499F5E721C99286800B82931 /* Pop.m4a */,
+				499F5E731C99286800B82931 /* BooshOpenSound.m4a */,
+				499F5E711C99285F00B82931 /* FartSound.m4a */,
+			);
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 		7EF70D3F786D49071B4D4F82 /* Frameworks */ = {
@@ -279,6 +299,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				499F5E741C992A4C00B82931 /* Pop.m4a in Resources */,
+				499F5E751C992A4C00B82931 /* BooshOpenSound.m4a in Resources */,
+				499F5E761C992A4C00B82931 /* FartSound.m4a in Resources */,
 				49596F1C1C73BB3200A29D62 /* Settings.bundle in Resources */,
 				49596EF21C67CDF000A29D62 /* LaunchScreen.storyboard in Resources */,
 				49596EEF1C67CDF000A29D62 /* Assets.xcassets in Resources */,
@@ -361,6 +384,7 @@
 				494F27911C7A041A00275370 /* ProfileView.swift in Sources */,
 				49FDB50B1C8193B4000458E2 /* DataSource.swift in Sources */,
 				49596F161C67CE4400A29D62 /* MapViewController.swift in Sources */,
+				499F5E781C9A019500B82931 /* FeedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
