@@ -10,16 +10,19 @@ PODS:
   - FBSDKLoginKit (4.10.0):
     - FBSDKCoreKit
   - Mapbox-iOS-SDK (3.0.1)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - FBSDKCoreKit (~> 4.10)
   - FBSDKLoginKit (~> 4.10)
   - Mapbox-iOS-SDK
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   FBSDKCoreKit: 13bec8373fb3af94d44daf2aa1e0958687897fbd
   FBSDKLoginKit: d3d4a2e9d31954deb00bfea964167a05ca1ea976
   Mapbox-iOS-SDK: 61e79f3dd8432617bd1a66b2d7273ab5ce923ca9
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

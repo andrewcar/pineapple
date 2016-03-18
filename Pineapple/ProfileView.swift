@@ -28,13 +28,11 @@ class ProfileView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateProfilePic", name: "GotCurrentProfilePic", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateUserName", name: "GotCurrentUserName", object: nil)
-        DataSource.sharedInstance.getCurrentProfilePic()
-        DataSource.sharedInstance.getCurrentUserName()
+        
+        backgroundColor = UIColor.whiteColor()
         
         // Profile pic image view
-        profilePicImageView.frame = CGRectMake(2, 2, bounds.width - 4, bounds.height - 4)
+        profilePicImageView.frame = CGRectMake(2, 2, frame.width - 4, frame.height - 4)
         
         // Rating view
         ratingImageView = UIImageView(image: UIImage(named: "rating stars"))
@@ -67,7 +65,7 @@ class ProfileView: UIView {
         showLocationLabel.textAlignment = NSTextAlignment.Right
         showLocationLabel.textColor = UIColor.lightGrayColor()
         showLocationLabel.numberOfLines = 1
-        showLocationLabel.font = UIFont.italicSystemFontOfSize(18)
+        showLocationLabel.font = UIFont.italicSystemFontOfSize(20)
         showLocationLabel.text = "Show location to party"
                 
         addSubview(profilePicImageView)
@@ -81,17 +79,5 @@ class ProfileView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    func updateProfilePic() {
-        profilePicImageView.image = DataSource.sharedInstance.profilePic
-    }
-    
-    func updateUserName() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                self.nameLabel.text = DataSource.sharedInstance.userName
-            })
-        })
     }
 }

@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import MapKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import SwiftyJSON
 
 class DataSource {
     
     static let sharedInstance = DataSource()
     var profilePic = UIImage()
     var userName = String()
+    var lastHood: String?
 
     private init() {}
     
@@ -49,5 +52,97 @@ class DataSource {
                 }
             }
         }
+    }
+    
+    func getCurrentHoodName(currentLocation: CLLocationCoordinate2D) -> String {
+        var filePath = String()
+        
+        // Based on user loc, point to varying GeoJSON files.
+        filePath = NSBundle.mainBundle().pathForResource("manualNYC", ofType: "geojson")!
+
+        let data = NSData(contentsOfFile: filePath)
+        let json = JSON(data: data!)
+        
+        if lastHood == nil {
+            lastHood = currentHoodNameFromAllHoods(currentLocation)
+        } else {
+            // 1. check against same hood
+            // 2. check against neighboring hoods
+            for (_, jsonHood) in json["features"] {
+                var coords: [CLLocationCoordinate2D] = []
+                
+                if let geometryDict = jsonHood["geometry"].dictionary {
+                    if let coordsArray = geometryDict["coordinates"]!.array {
+                        for nextCoordsArray in coordsArray {
+                            for coord in nextCoordsArray {
+                                let latitude = CLLocationDegrees(coord.1[1].double!)
+                                let longitutde = CLLocationDegrees(coord.1[0].double!)
+                                coords.append(CLLocationCoordinate2DMake(latitude, longitutde))
+                            }
+                        }
+                        let polygon = MKPolygon(coordinates: &coords, count: coords.count)
+                        let polygonRenderer = MKPolygonRenderer(polygon: polygon)
+                        
+                        let currentMapPoint: MKMapPoint = MKMapPointForCoordinate(currentLocation)
+                        let polygonViewPoint: CGPoint = polygonRenderer.pointForMapPoint(currentMapPoint)
+                        
+                        if CGPathContainsPoint(polygonRenderer.path, nil, polygonViewPoint, true) {
+                            if let propertiesDict = jsonHood["properties"].dictionary {
+                                if let name = propertiesDict["neighborhood"] {
+                                    lastHood = String(name)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return lastHood!
+    }
+    
+    func currentHoodNameFromAllHoods(currentLocation: CLLocationCoordinate2D) -> String {
+        var filePath = String()
+        
+        // Based on user loc, point to varying GeoJSON files.
+        if currentLocation.latitude > 24 && currentLocation.latitude < 31 {
+            filePath = NSBundle.mainBundle().pathForResource("sofla", ofType: "geojson")!
+        } else {
+            filePath = NSBundle.mainBundle().pathForResource("manualNYC", ofType: "geojson")!
+        }
+        
+        let data = NSData(contentsOfFile: filePath)
+        let json = JSON(data: data!)
+        
+        // Check all hoods
+        for (_, jsonHood) in json["features"] {
+            var coords: [CLLocationCoordinate2D] = []
+            
+            if let geometryDict = jsonHood["geometry"].dictionary {
+                if let coordsArray = geometryDict["coordinates"]!.array {
+                    for nextCoordsArray in coordsArray {
+                        for coord in nextCoordsArray {
+                            let latitude = CLLocationDegrees(coord.1[1].double!)
+                            let longitutde = CLLocationDegrees(coord.1[0].double!)
+                            coords.append(CLLocationCoordinate2DMake(latitude, longitutde))
+                        }
+                    }
+                    let polygon = MKPolygon(coordinates: &coords, count: coords.count)
+                    let polygonRenderer = MKPolygonRenderer(polygon: polygon)
+                    
+                    let currentMapPoint: MKMapPoint = MKMapPointForCoordinate(currentLocation)
+                    let polygonViewPoint: CGPoint = polygonRenderer.pointForMapPoint(currentMapPoint)
+                    
+                    if CGPathContainsPoint(polygonRenderer.path, nil, polygonViewPoint, true) {
+                        if let propertiesDict = jsonHood["properties"].dictionary {
+                            if let name = propertiesDict["neighborhood"] {
+                                lastHood = String(name)
+                                return lastHood!
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return ""
     }
 }

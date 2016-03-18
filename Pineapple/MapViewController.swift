@@ -27,8 +27,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     var closeProfileSound: AVAudioPlayer!
 
     var lastLocation: CGPoint = CGPointMake(0, 0)
-    var edgePadding: CGFloat = 20
-    var innerPadding: CGFloat = 10
+    var padding: CGFloat = 20
     var profileClosedWidth = CGFloat()
     var profileOpenWidth = CGFloat()
     var labelWidth = CGFloat()
@@ -41,11 +40,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     var mapCenter: CLLocationCoordinate2D?
     var profileView = ProfileView()
     var profileButton = UIButton()
-    var feedView = UIView()
+    var feedView = FeedView()
     
     // MARK: View Lifecycle
     
     override func awakeFromNib() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateProfilePic", name: "GotCurrentProfilePic", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateUserName", name: "GotCurrentUserName", object: nil)
+        DataSource.sharedInstance.getCurrentProfilePic()
+        DataSource.sharedInstance.getCurrentUserName()
         view.userInteractionEnabled = true
         view.addGestureRecognizer(feedPan)
     }
@@ -53,8 +56,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     override func viewDidLoad() {
         super.viewDidLoad()
         feedState = .FeedMinimized
-        
         feedPan = UIPanGestureRecognizer(target: self, action: "panDetected:")
+        profileOpenWidth = self.view.frame.width - self.padding * 2
         
         addSounds()
         addMap()
@@ -62,8 +65,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         setCamera()
         addLocationManager()
         addFeed()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
-        profileOpenWidth = self.view.frame.width - self.edgePadding * 2
+        self.updateHoodNameLabel()
     }
     
     // MARK: Helper Functions
@@ -108,16 +115,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         profileClosedValues()
         profileContentHiddenValues()
         
-        // Configure the profile view.
-        profileView.backgroundColor = UIColor.whiteColor()
         profileView.layer.cornerRadius = profileView.frame.width / 2
         profileView.layer.masksToBounds = true
-        
-        // Set the profile pic image view corner radius.
+
         profileView.profilePicImageView.layer.cornerRadius = profileView.profilePicImageView.frame.width / 2
         profileView.profilePicImageView.layer.masksToBounds = true
         
-        // Configure the profile button.
         profileButton.addTarget(self, action: "toggleProfile", forControlEvents: UIControlEvents.TouchUpInside)
         profileButton.backgroundColor = UIColor.clearColor()
         profileButton.titleLabel!.font = UIFont.boldSystemFontOfSize(18)
@@ -217,12 +220,21 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         }
     }
     
+    func updateProfilePic() {
+        self.profileView.profilePicImageView.image = DataSource.sharedInstance.profilePic
+    }
+    
+    func updateUserName() {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.profileView.nameLabel.text = DataSource.sharedInstance.userName
+            })
+        })
+    }
+    
     func addFeed() {
-        self.feedView = UIView()
-        self.feedView.backgroundColor = UIColor.blackColor()
-        self.feedView.layer.cornerRadius = 20
+        self.feedView = FeedView(frame: CGRectMake(0, self.view.frame.maxY - self.feedView.partyListViewMaxY, self.view.frame.width, self.view.frame.height))
         self.view.addSubview(self.feedView)
-        self.feedMinimizedValues()
     }
     
     func toggleFeed() {
@@ -231,6 +243,22 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         } else if feedState == .FeedShowing {
             
         }
+    }
+    
+    func updateHoodNameLabel() {
+        if self.locationManager.location != nil {
+            if self.feedView.hoodNameLabel.text == DataSource.sharedInstance.getCurrentHoodName((self.locationManager.location?.coordinate)!) {
+                return
+            } else {
+                self.feedView.hoodNameLabel.text = DataSource.sharedInstance.getCurrentHoodName((self.locationManager.location?.coordinate)!)
+                if self.feedView.hoodNameLabel.text == "" {
+                    self.feedView.hoodNameLabel.text = "Neighborhood"
+                }
+            }
+        } else {
+            self.feedView.hoodNameLabel.text = "Neighborhood"
+        }
+        print(self.feedView.hoodNameLabel.frame)
     }
     
     // MARK: Touches
@@ -244,7 +272,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
         if feedPan.state == UIGestureRecognizerState.Began {
             UIView.animateWithDuration(2, animations: { () -> Void in
-                self.feedView.layer.cornerRadius = 20
                 }, completion: { (Bool) -> Void in
                     return
             })
@@ -254,9 +281,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
             
             if feedView.frame.contains(sender.locationInView(sender.view)) {
                 
-                if translation.y > 100 {
+                if translation.y > 360 {
                     UIView.animateWithDuration(0.426, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-                        self.feedView.frame = CGRectMake(0, self.view.frame.height - 100, self.feedView.frame.width, self.feedView.frame.height)
+                        self.feedView.frame = CGRectMake(0, self.view.frame.height - self.feedView.partyListView.frame.maxY, self.feedView.frame.width, self.feedView.frame.height)
                         }, completion: { (Bool) -> Void in
                             self.feedState = .FeedShowing
                     })
@@ -264,11 +291,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
                     UIView.animateWithDuration(0.426, delay: 0, usingSpringWithDamping: 1.5, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                         self.feedView.frame = CGRectMake(0, self.view.frame.origin.y, self.feedView.frame.width, self.feedView.frame.height)
                         }, completion: { (Bool) -> Void in
-                            UIView.animateWithDuration(2, animations: { () -> Void in
-                                self.feedView.layer.cornerRadius = 0
-                                }, completion: { (Bool) -> Void in
-                                    return
-                            })
+                            return
                     })
                 }
             } else {
@@ -287,7 +310,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     func profileClosedValues() {
         // Profile view
-        self.profileView.frame = CGRectMake(self.edgePadding, self.edgePadding + 5, self.view.frame.width * 0.15, self.view.frame.width * 0.15)
+        self.profileView.frame = CGRectMake(self.padding, self.padding + 5, self.view.frame.width * 0.15, self.view.frame.width * 0.15)
         self.profileClosedWidth = self.profileView.frame.width
         
         // Profile button
@@ -303,60 +326,60 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     func profileContentHiddenValues() {
         // Name label
-        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.edgePadding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileOpenWidth - self.profileView.profilePicImageView.frame.width - self.edgePadding * 3, 0)
+        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileOpenWidth - self.profileView.profilePicImageView.frame.width - self.padding * 3, 0)
         
         // Rating view
         self.profileView.ratingImageView.frame = CGRectMake(self.profileView.bounds.maxX, self.profileView.nameLabel.frame.origin.y - 40, self.profileView.nameLabel.frame.width * 0.9, 40)
         
         // Host count label
-        self.profileView.hostCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.profilePicImageView.frame.maxY + self.edgePadding, self.profileOpenWidth - self.edgePadding * 2, 0)
+        self.profileView.hostCountLabel.frame = CGRectMake(self.padding, self.profileView.profilePicImageView.frame.maxY + self.padding, self.profileOpenWidth - self.padding * 2, 0)
         
         // Attend count label
-        self.profileView.attendCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.hostCountLabel.frame.maxY + self.edgePadding, self.profileOpenWidth - self.edgePadding * 2, 0)
+        self.profileView.attendCountLabel.frame = CGRectMake(self.padding, self.profileView.hostCountLabel.frame.maxY + self.padding, self.profileOpenWidth - self.padding * 2, 0)
         
-        labelWidth = self.profileOpenWidth - self.innerPadding * 2 - self.profileView.showLocationSwitch.frame.width
+        labelWidth = self.profileOpenWidth - self.profileView.showLocationSwitch.frame.width - self.padding * 2
         switchSize = CGSizeMake(CGRectGetWidth(self.profileView.showLocationSwitch.frame), CGRectGetHeight(self.profileView.showLocationSwitch.frame))
         
         // Show location label
-        self.profileView.showLocationLabel.frame = CGRectMake(self.profileView.showLocationSwitch.frame.minX - labelWidth - self.edgePadding * 2, self.profileView.attendCountLabel.frame.maxY + self.innerPadding, labelWidth, 0)
+        self.profileView.showLocationLabel.frame = CGRectMake(self.profileView.showLocationSwitch.frame.minX - labelWidth - self.padding * 2, self.profileView.attendCountLabel.frame.maxY + 10, labelWidth, 0)
         
         // Show location switch
-        self.profileView.showLocationSwitch.frame = CGRectMake(self.profileView.frame.maxX - self.switchSize.width - edgePadding * 2, self.profileView.attendCountLabel.frame.maxY + self.innerPadding, self.switchSize.width, self.profileView.showLocationSwitch.frame.height)
+        self.profileView.showLocationSwitch.frame = CGRectMake(self.profileView.frame.maxX - self.switchSize.width - self.padding * 2, self.profileView.attendCountLabel.frame.maxY + 10, self.switchSize.width, self.profileView.showLocationSwitch.frame.height)
         self.profileView.showLocationSwitch.hidden = true
     }
     
     func profileOpenValues() {
         // Profile view
-        self.profileView.frame = CGRectMake(self.edgePadding, self.edgePadding + 5, self.view.frame.width - self.edgePadding * 2, self.view.frame.width - self.edgePadding * 2)
+        self.profileView.frame = CGRectMake(self.padding, self.padding + 5, self.view.frame.width - self.padding * 2, self.view.frame.width - self.padding * 2)
         
         // Profile button
-        self.profileButton.frame = CGRectMake(self.profileOpenWidth - 45 - self.edgePadding, self.profileView.frame.origin.y + self.edgePadding, 50, 30)
+        self.profileButton.frame = CGRectMake(self.profileOpenWidth - 45 - self.padding, self.profileView.frame.origin.y + self.padding, 50, 30)
         self.profileButton.setTitleColor(UIColor(red: 192/255.0, green: 57/255.0, blue: 43/255.0, alpha: 1), forState: UIControlState.Normal)
         
         // Profile pic image view
-        self.profileView.profilePicImageView.frame = CGRectMake(self.edgePadding, self.edgePadding, self.profileOpenWidth * 0.3, self.profileOpenWidth * 0.3)
+        self.profileView.profilePicImageView.frame = CGRectMake(self.padding, self.padding, self.profileOpenWidth * 0.3, self.profileOpenWidth * 0.3)
     }
     
     func profileLabelsShownValues() {
         // Name label
-        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.edgePadding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileOpenWidth - self.profileView.profilePicImageView.frame.width - self.edgePadding * 3, 40)
+        self.profileView.nameLabel.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2, self.profileView.profilePicImageView.frame.maxY - 40, self.profileOpenWidth - self.profileView.profilePicImageView.frame.width - self.padding * 3, 40)
         
         // Host count label
-        self.profileView.hostCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.profilePicImageView.frame.maxY + self.edgePadding, self.profileOpenWidth - self.edgePadding * 2, 22)
+        self.profileView.hostCountLabel.frame = CGRectMake(self.padding, self.profileView.profilePicImageView.frame.maxY + self.padding, self.profileOpenWidth - self.padding * 2, 22)
         
         // Attend count label
-        self.profileView.attendCountLabel.frame = CGRectMake(self.edgePadding, self.profileView.hostCountLabel.frame.maxY + self.innerPadding, self.profileOpenWidth - self.edgePadding * 2, 22)
+        self.profileView.attendCountLabel.frame = CGRectMake(self.padding, self.profileView.hostCountLabel.frame.maxY + 10, self.profileOpenWidth - self.padding * 2, 22)
 
         // Show location switch
-        self.profileView.showLocationSwitch.frame = CGRectMake(self.profileView.frame.maxX - self.switchSize.width - edgePadding * 2, self.profileView.attendCountLabel.frame.maxY + self.edgePadding, self.switchSize.width, self.profileView.showLocationSwitch.frame.height)
+        self.profileView.showLocationSwitch.frame = CGRectMake(self.profileView.frame.maxX - self.switchSize.width - self.padding * 2 - 10, self.profileView.attendCountLabel.frame.maxY + self.padding, self.switchSize.width, self.profileView.showLocationSwitch.frame.height)
         self.profileView.showLocationSwitch.hidden = false
 
         // Show location label
-        self.profileView.showLocationLabel.frame = CGRectMake(self.profileView.showLocationSwitch.frame.minX - labelWidth - self.edgePadding * 2, self.profileView.attendCountLabel.frame.maxY + self.edgePadding, labelWidth, self.switchSize.height)
+        self.profileView.showLocationLabel.frame = CGRectMake(self.profileView.showLocationSwitch.frame.minX - labelWidth - self.padding * 2, self.profileView.attendCountLabel.frame.maxY + self.padding, labelWidth, self.switchSize.height)
     }
     
     func ratingImageViewShownValues() {
-        self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.edgePadding * 2 + 8, self.profileView.nameLabel.frame.origin.y - 40, self.profileView.ratingImageView.frame.width, 40)
+        self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2 + 8, self.profileView.nameLabel.frame.origin.y - 40, self.profileView.ratingImageView.frame.width, 40)
     }
     
     // MARK: Feed Values
@@ -366,7 +389,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     }
     
     func feedMinimizedValues() {
-        self.feedView.frame = CGRectMake(0, self.view.frame.maxY - 100, self.view.frame.width, self.view.frame.height)
+        self.feedView.frame = CGRectMake(0, self.view.frame.maxY - self.feedView.partyListViewMaxY, self.view.frame.width, self.view.frame.height)
     }
     
     func feedShowingValues() {

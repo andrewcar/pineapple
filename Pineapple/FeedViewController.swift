@@ -2,7 +2,7 @@
 //  FeedViewController.swift
 //  Pineapple
 //
-//  Created by Andrew Carvajal on 3/16/16.
+//  Created by Andrew Carvajal on 3/17/16.
 //  Copyright © 2016 Andrew Carvajal. All rights reserved.
 //
 
@@ -10,17 +10,11 @@ import UIKit
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var feedTableView: UITableView!
-    @IBOutlet weak var feedToolbarView: UIView!
-    @IBOutlet weak var feedPartyListView: UIView!
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    // MARK: UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

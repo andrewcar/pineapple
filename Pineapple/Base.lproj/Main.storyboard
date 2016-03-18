@@ -33,18 +33,10 @@
                         <viewControllerLayoutGuide type="top" id="ele-za-f9j"/>
                         <viewControllerLayoutGuide type="bottom" id="o31-4k-dL6"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GFX-4p-Pm8">
+                    <view key="view" contentMode="scaleToFill" id="GFX-4p-Pm8" customClass="FeedView" customModule="Pineapple" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qDn-W9-RIl">
-                                <rect key="frame" x="0.0" y="20" width="600" height="70"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doc-MB-iLI">
-                                <rect key="frame" x="0.0" y="90" width="600" height="100"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LAu-lv-bMw">
                                 <rect key="frame" x="0.0" y="190" width="600" height="610"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -61,14 +53,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="feedTableView" destination="LAu-lv-bMw" id="YR4-Wd-hz8"/>
+                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>
-                    <connections>
-                        <outlet property="feedPartyListView" destination="doc-MB-iLI" id="n5s-Q1-dZz"/>
-                        <outlet property="feedTableView" destination="LAu-lv-bMw" id="A06-Gu-fqd"/>
-                        <outlet property="feedToolbarView" destination="qDn-W9-RIl" id="KWO-PD-iFz"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CPO-E0-441" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
