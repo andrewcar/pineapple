@@ -17,7 +17,7 @@ enum FeedState {
     case FeedShowing
 }
 
-class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     
     var feedState = FeedState?()
     
@@ -46,7 +46,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     override func awakeFromNib() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateProfilePic", name: "GotCurrentProfilePic", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateUserName", name: "GotCurrentUserName", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateProfileUserName", name: "GotCurrentUserName", object: nil)
         DataSource.sharedInstance.getCurrentProfilePic()
         DataSource.sharedInstance.getCurrentUserName()
         view.userInteractionEnabled = true
@@ -69,11 +69,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.updateHoodNameLabel()
+        self.updateFeedMeetingPointLabel()
+        self.updateFeedCurrentPlaceLabel()
     }
     
     // MARK: Helper Functions
+    
+    // MARK: --MAP
     
     func addMap() {
         mapboxView = MGLMapView(frame: view.bounds)
@@ -110,6 +112,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         locationManager.startUpdatingHeading()
     }
     
+    // MARK: --PROFILE
+    
     func addProfile() {
         profileView.profileState = ProfileState.ProfileClosed
         profileClosedValues()
@@ -127,14 +131,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
         view.addSubview(profileView)
         view.addSubview(profileButton)
-    }
-    
-    func addSounds() {
-        let audioSession = AVAudioSession.sharedInstance()
-        if audioSession.otherAudioPlaying {
-            _ = try? audioSession.setCategory(AVAudioSessionCategoryAmbient, withOptions: .MixWithOthers)
-            _ = try? audioSession.setActive(true, withOptions: [])
-        }
     }
     
     func toggleProfile() {
@@ -207,30 +203,19 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         self.profileContentHiddenValues()
     }
     
-    func playAudioFile(file: NSString, type: NSString) {
-        let path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)!
-        let url = NSURL.fileURLWithPath(path)
-        
-        do {
-            let sound = try AVAudioPlayer(contentsOfURL: url)
-            openProfileSound = sound
-            sound.play()
-        } catch {
-            print("Player not available")
-        }
-    }
-    
     func updateProfilePic() {
         self.profileView.profilePicImageView.image = DataSource.sharedInstance.profilePic
     }
     
-    func updateUserName() {
+    func updateProfileUserName() {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
             dispatch_async(dispatch_get_main_queue(), {
                 self.profileView.nameLabel.text = DataSource.sharedInstance.userName
             })
         })
     }
+    
+    // MARK: --FEED
     
     func addFeed() {
         self.feedView = FeedView(frame: CGRectMake(0, self.view.frame.maxY - self.feedView.partyListViewMaxY, self.view.frame.width, self.view.frame.height))
@@ -245,23 +230,29 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         }
     }
     
-    func updateHoodNameLabel() {
-        if self.locationManager.location != nil {
-            if self.feedView.hoodNameLabel.text == DataSource.sharedInstance.getCurrentHoodName((self.locationManager.location?.coordinate)!) {
-                return
-            } else {
-                self.feedView.hoodNameLabel.text = DataSource.sharedInstance.getCurrentHoodName((self.locationManager.location?.coordinate)!)
-                if self.feedView.hoodNameLabel.text == "" {
-                    self.feedView.hoodNameLabel.text = "Neighborhood"
-                }
-            }
-        } else {
-            self.feedView.hoodNameLabel.text = "Neighborhood"
-        }
-        print(self.feedView.hoodNameLabel.frame)
+    func updateFeedMeetingPointLabel() {
+        self.feedView.meetingPointLabel.text = "Meet out front at 2:00 AM"
     }
     
-    // MARK: Touches
+    func updateFeedCurrentPlaceLabel() {
+        self.feedView.currentPlaceLabel.text = "Pianos"
+    }
+    
+    // MARK: UITableViewDataSource
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    // MARK: UIGestureRecognizerDelegate
     
     func panDetected(sender: UIPanGestureRecognizer) {
         let translation = sender.translationInView(feedView)
@@ -300,13 +291,35 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         }
     }
     
-    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         view.bringSubviewToFront(feedView)
         lastLocation = feedView.center
     }
     
-    // MARK: Profile Values
+    // MARK: Sound
+    
+    func addSounds() {
+        let audioSession = AVAudioSession.sharedInstance()
+        if audioSession.otherAudioPlaying {
+            _ = try? audioSession.setCategory(AVAudioSessionCategoryAmbient, withOptions: .MixWithOthers)
+            _ = try? audioSession.setActive(true, withOptions: [])
+        }
+    }
+    
+    func playAudioFile(file: NSString, type: NSString) {
+        let path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)!
+        let url = NSURL.fileURLWithPath(path)
+        
+        do {
+            let sound = try AVAudioPlayer(contentsOfURL: url)
+            openProfileSound = sound
+            sound.play()
+        } catch {
+            print("Player not available")
+        }
+    }
+    
+    // MARK: Profile Animation Values
     
     func profileClosedValues() {
         // Profile view
@@ -382,7 +395,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         self.profileView.ratingImageView.frame = CGRectMake(self.profileView.profilePicImageView.frame.width + self.padding * 2 + 8, self.profileView.nameLabel.frame.origin.y - 40, self.profileView.ratingImageView.frame.width, 40)
     }
     
-    // MARK: Feed Values
+    // MARK: Feed Animation Values
     
     func feedHiddenValues() {
         self.feedView.frame = CGRectMake(0, self.view.frame.maxY, self.view.frame.width, self.view.frame.height)

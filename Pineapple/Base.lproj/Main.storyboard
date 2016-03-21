@@ -25,45 +25,6 @@
             </objects>
             <point key="canvasLocation" x="832" y="418"/>
         </scene>
-        <!--Feed View Controller-->
-        <scene sceneID="VEG-QY-Wic">
-            <objects>
-                <viewController id="Mq6-nR-rQC" customClass="FeedViewController" customModule="Pineapple" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ele-za-f9j"/>
-                        <viewControllerLayoutGuide type="bottom" id="o31-4k-dL6"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GFX-4p-Pm8" customClass="FeedView" customModule="Pineapple" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LAu-lv-bMw">
-                                <rect key="frame" x="0.0" y="190" width="600" height="610"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="HcH-cO-jCC">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HcH-cO-jCC" id="7hQ-ha-0BQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="feedTableView" destination="LAu-lv-bMw" id="YR4-Wd-hz8"/>
-                        </connections>
-                    </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="800"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CPO-E0-441" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1548" y="418"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="kkn-Hf-wFx">
             <objects>
